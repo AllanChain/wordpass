@@ -49,7 +49,7 @@ const targetValue = (event: Event): string =>
       value={password}
     />
     <span
-      class="text-gray-600 absolute top-0 right-0 py-2 px-3"
+      class="text-gray-600 dark:text-gray-300 absolute top-0 right-0 py-2 px-3"
       on:click={() => {
         showingPassword = !showingPassword
       }}
@@ -74,13 +74,13 @@ const targetValue = (event: Event): string =>
 <div class="w-full flex my-3">
   <input
     type="text"
-    class="flex-1 border-gray-400 px-4 py-2 rounded-l outline-none"
+    class="flex-1 border-gray-400 dark:bg-gray-800 dark:border-gray-600 px-4 py-2 rounded-l outline-none"
     placeholder="Generated Password"
     value={result}
     disabled
   />
   <button
-    class="bg-green-500  text-gray-100 hover:bg-green-400 flex items-center px-4 py-2 border border-l-0 rounded-r"
+    class="bg-green-500  text-gray-100 hover:bg-green-400 flex items-center px-4 py-2 rounded-r"
     on:click={() => navigator.clipboard.writeText(result)}
   >
     Copy
@@ -135,11 +135,12 @@ const targetValue = (event: Event): string =>
   <div class="markdown"><ReadMe /></div>
 </Expander>
 
-<style lang="postcss">
+<style lang="postcss" global>
 .combined-text-label {
-  @apply bg-gray-100 flex items-center px-4 py-2 border border-r-0 rounded-l text-sm font-medium text-gray-800 select-none;
+  @apply bg-gray-100 flex items-center px-4 py-2 border border-r-0 rounded-l text-sm font-medium text-gray-800 select-none dark:text-gray-300 dark:bg-gray-500 dark:border-gray-600;
 }
 .combined-text-input {
-  @apply w-full border-gray-400 px-4 py-2 rounded-r focus:border-blue-500 focus:ring-1 outline-none;
+  @apply w-full border-gray-400 px-4 py-2 rounded-r focus:border-blue-500 focus:ring-1 outline-none dark:bg-gray-800 dark:border-gray-600;
 }
+
 </style>

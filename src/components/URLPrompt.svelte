@@ -31,10 +31,10 @@ const oninput = (event: Event) => {
 </script>
 
 <div class="md:col-span-2 my-1 mx-2 flex items-center">
-  <div class="text-gray-600 mr-1">Word List URL:</div>
+  <div class="mr-1">Word List URL:</div>
   <select
     id="wordlist-url"
-    class="py-0 px-2 truncate min-w-0 flex-1"
+    class="py-0 px-2 truncate min-w-0 flex-1 dark:bg-gray-800"
     bind:this={selectRef}
     on:input={oninput}
   >

@@ -4,6 +4,7 @@ import SliderOption from './SliderOption.svelte'
 import type { WordpassAppOptions } from '../app-options'
 import TextOption from './TextOption.svelte'
 import UrlPrompt from './URLPrompt.svelte'
+import { theme } from '../store'
 
 export let options: WordpassAppOptions
 
@@ -12,7 +13,7 @@ const targetValueNumber = (event: Event): number =>
   parseInt((event.target as HTMLInputElement).value)
 </script>
 
-<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1">
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-gray-600 dark:text-gray-200">
   <CheckboxOption id="capitailze" bind:checked={options.capitalize}>
     Capitalize
   </CheckboxOption>
@@ -32,7 +33,13 @@ const targetValueNumber = (event: Event): number =>
       options.separator = '$random$'
     }}>Random Separator</CheckboxOption
   >
-  <span />
+  <CheckboxOption
+    id="theme"
+    checked={$theme === 'dark'}
+    on:input={theme.toggle}
+  >
+    Dark Theme
+  </CheckboxOption>
   <TextOption id="salt-prefix" bind:value={options.saltPrefix}>
     Salt Prefix:
   </TextOption>
@@ -73,7 +80,7 @@ const targetValueNumber = (event: Event): number =>
   </SliderOption>
 </div>
 <UrlPrompt bind:value={options.wordList} on:urlChange />
-<p class="text-gray-500 text-sm text-left mt-3">
+<p class="text-sm text-left mt-3">
   Reference:
   <a
     class="text-blue-600"

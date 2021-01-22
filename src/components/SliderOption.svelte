@@ -6,7 +6,7 @@ export let value: number
 export let id: string
 </script>
 
-<label for={id} class="text-gray-600">
+<label for={id}>
   <slot />
 </label>
 <input
