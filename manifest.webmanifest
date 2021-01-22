@@ -1,0 +1,9 @@
+{
+  "name": "wordpass",
+  "short_name": "wordpass",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#ffffff",
+  "lang": "en",
+  "description": "A words-based password generator"
+}
