@@ -1,9 +1,18 @@
 {
   "name": "wordpass",
   "short_name": "wordpass",
-  "start_url": "/",
+  "start_url": "/wordpass/",
   "display": "standalone",
   "background_color": "#ffffff",
   "lang": "en",
-  "description": "A words-based password generator"
+  "description": "A words-based password generator",
+  "theme_color": "#374151",
+  "icons": [
+    {
+      "src": "/wordpass/icon.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "maskable"
+    }
+  ]
 }
