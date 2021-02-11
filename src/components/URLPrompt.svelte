@@ -31,7 +31,7 @@ const oninput = (event: Event) => {
 </script>
 
 <div class="md:col-span-2 my-1 mx-2 flex items-center">
-  <div class="mr-1">Word List URL:</div>
+  <label for="wordlist-url" class="mr-1">Word List URL:</label>
   <select
     id="wordlist-url"
     class="py-0 px-2 truncate min-w-0 flex-1 dark:bg-gray-800"

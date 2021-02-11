@@ -37,9 +37,10 @@ const targetValue = (event: Event): string =>
 </script>
 
 <div class="w-full flex my-3">
-  <div class="combined-text-label">Phrase</div>
+  <label for="phrase" class="combined-text-label">Phrase</label>
   <div class="flex-1 relative">
     <input
+      id="phrase"
       class="pr-10 combined-text-input"
       on:input={event => {
         password = targetValue(event)
@@ -60,10 +61,11 @@ const targetValue = (event: Event): string =>
 </div>
 
 <div class="w-full flex my-3">
-  <div class="combined-text-label">Service</div>
+  <label for="service" class="combined-text-label">Service</label>
   <div class="flex-1">
     <input
       type="text"
+      id="service"
       class="combined-text-input"
       placeholder="Service Name"
       bind:value={service}
@@ -76,11 +78,12 @@ const targetValue = (event: Event): string =>
     type="text"
     class="flex-1 border-gray-400 dark:bg-gray-800 dark:border-gray-600 px-4 py-2 rounded-l outline-none"
     placeholder="Generated Password"
+    aria-label="Generated Password"
     value={result}
     disabled
   />
   <button
-    class="bg-green-500  text-gray-100 hover:bg-green-400 flex items-center px-4 py-2 rounded-r"
+    class="bg-green-600  text-gray-100 hover:bg-green-500 flex items-center px-4 py-2 rounded-r"
     on:click={() => navigator.clipboard.writeText(result)}
   >
     Copy
@@ -96,7 +99,7 @@ const targetValue = (event: Event): string =>
   </button>
 {:then words}
   <button
-    class="bg-green-500 text-gray-100 rounded hover:bg-green-400 pl-2 pr-4 py-2 focus:outline-none"
+    class="bg-green-600 text-gray-100 rounded hover:bg-green-500 pl-2 pr-4 py-2 focus:outline-none"
     on:click={() => refresh(words)}
   >
     <MDIcon class="inline-block" path={mdiLightningBolt} />
@@ -137,7 +140,7 @@ const targetValue = (event: Event): string =>
 
 <style lang="postcss" global>
 .combined-text-label {
-  @apply bg-gray-100 flex items-center px-4 py-2 border border-r-0 rounded-l text-sm font-medium text-gray-800 select-none dark:text-gray-300 dark:bg-gray-500 dark:border-gray-600;
+  @apply bg-gray-100 flex items-center px-4 py-2 border border-r-0 rounded-l text-sm font-medium text-gray-800 select-none dark:text-gray-100 dark:bg-gray-500 dark:border-gray-600;
 }
 .combined-text-input {
   @apply w-full border-gray-400 px-4 py-2 rounded-r focus:border-blue-500 focus:ring-1 outline-none dark:bg-gray-800 dark:border-gray-600;
