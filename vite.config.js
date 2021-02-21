@@ -13,10 +13,22 @@ export default {
         theme_color: '#374151',
         icons: [
           {
-            src: resolveBase('/icon.png'),
+            src: resolveBase('/icon-512x512-maskable.png'),
             type: 'image/png',
             sizes: '512x512',
             purpose: 'maskable'
+          },
+          {
+            src: resolveBase('/icon-512x512-any.png'),
+            type: 'image/png',
+            sizes: '512x512',
+            purpose: 'any'
+          },
+          {
+            src: resolveBase('/icon-144x144-any.png'),
+            type: 'image/png',
+            sizes: '144x144',
+            purpose: 'any'
           }
         ]
       },
