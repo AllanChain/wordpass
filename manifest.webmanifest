@@ -9,10 +9,22 @@
   "theme_color": "#374151",
   "icons": [
     {
-      "src": "/wordpass/icon.png",
+      "src": "/wordpass/icon-512x512-maskable.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable"
+    },
+    {
+      "src": "/wordpass/icon-512x512-any.png",
+      "type": "image/png",
+      "sizes": "512x512",
+      "purpose": "any"
+    },
+    {
+      "src": "/wordpass/icon-144x144-any.png",
+      "type": "image/png",
+      "sizes": "144x144",
+      "purpose": "any"
     }
   ]
 }
