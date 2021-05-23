@@ -26,7 +26,7 @@ jobs:
       - name: Install Packages
         run: yarn --frozen-lockfile
       - name: Build App
-        run: yarn build --base=/wordpass
+        run: yarn build --base=/wordpass/
         env:
           BASE_URL: /wordpass
       - name: Deploy

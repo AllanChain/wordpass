@@ -28,8 +28,9 @@ const startFetching = (url: string) =>
   fetch(url).then(response => response.json())
 let wordsPromise = startFetching(options.wordList)
 const refresh = async (words: string[]) => {
-  if (options.saveConfig)
+  if (options.saveConfig) {
     localStorage.setItem('wordpassConfig', JSON.stringify(options))
+  }
   result = await generate(password, service, words, options)
 }
 const targetValue = (event: Event): string =>
@@ -145,5 +146,4 @@ const targetValue = (event: Event): string =>
 .combined-text-input {
   @apply w-full border-gray-400 px-4 py-2 rounded-r focus:border-blue-500 focus:ring-1 outline-none dark:bg-gray-800 dark:border-gray-600;
 }
-
 </style>

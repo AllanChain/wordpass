@@ -1,31 +1,33 @@
+import { defineConfig } from 'vite'
 import { VitePWA } from 'vite-plugin-pwa'
+import svelte from '@sveltejs/vite-plugin-svelte'
 
-const resolveBase = path => (process.env.BASE_URL || '') + path
-
-export default {
+// https://vitejs.dev/config/
+export default defineConfig({
   plugins: [
+    svelte(),
     VitePWA({
       manifest: {
         name: 'wordpass',
         short_name: 'wordpass',
         description: 'A words-based password generator',
-        start_url: resolveBase('/'),
+        start_url: '/',
         theme_color: '#374151',
         icons: [
           {
-            src: resolveBase('/icon-512x512-maskable.png'),
+            src: '/icon-512x512-maskable.png',
             type: 'image/png',
             sizes: '512x512',
             purpose: 'maskable'
           },
           {
-            src: resolveBase('/icon-512x512-any.png'),
+            src: '/icon-512x512-any.png',
             type: 'image/png',
             sizes: '512x512',
             purpose: 'any'
           },
           {
-            src: resolveBase('/icon-144x144-any.png'),
+            src: '/icon-144x144-any.png',
             type: 'image/png',
             sizes: '144x144',
             purpose: 'any'
@@ -48,23 +50,6 @@ export default {
           }
         ]
       }
-    }),
-    {
-      name: 'patch-pwa-base',
-      indexHtmlTransforms: [
-        {
-          apply: 'post',
-          transform({ code, isBuild }) {
-            if (!isBuild) return code
-            return code
-              .replace(
-                '/manifest.webmanifest',
-                resolveBase('/manifest.webmanifest')
-              )
-              .replace('/sw.js', resolveBase('/sw.js'))
-          }
-        }
-      ]
-    }
+    })
   ]
-}
+})

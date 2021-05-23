@@ -19,7 +19,7 @@ onMount(() => {
 })
 
 const oninput = (event: Event) => {
-  let selected = (event.target as HTMLInputElement).value
+  const selected = (event.target as HTMLInputElement).value
   let url = selected
   if (selected === '$new-custom$') url = prompt('Enter the URL', value)
   if (url && url !== value) {

@@ -1,18 +1,28 @@
-// Waning: in this project, eslint does not try to lint svelte files
 module.exports = {
   parser: '@typescript-eslint/parser',
+  extends: 'standard',
+  env: { browser: true },
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module'
   },
-  extends: [
-    'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
-    'plugin:prettier/recommended'
+  plugins: [
+    'svelte3',
+    '@typescript-eslint'
   ],
-  plugins: ['prettier'],
+  overrides: [
+    {
+      files: ['*.svelte'],
+      processor: 'svelte3/svelte3'
+    }
+  ],
   rules: {
-    'prettier/prettier': 'error',
-    '@typescript-eslint/no-var-requires': 'off'
+    // sveltejs/eslint-plugin-svelte3#82
+    'no-multiple-empty-lines': ['error', { max: 1, maxBOF: 2 }],
+    'import/first': 'off'
+  },
+  settings: {
+    'svelte3/typescript': true,
+    'svelte3/ignore-styles': ({ lang }) => lang === 'postcss'
   }
 }
