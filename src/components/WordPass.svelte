@@ -77,7 +77,7 @@ const targetValue = (event: Event): string =>
 <div class="w-full flex my-3">
   <input
     type="text"
-    class="flex-1 border-gray-400 dark:bg-gray-800 dark:border-gray-600 px-4 py-2 rounded-l outline-none"
+    class="flex-1 overflow-x-auto border-gray-400 dark:bg-gray-800 dark:border-gray-600 px-4 py-2 rounded-l outline-none"
     placeholder="Generated Password"
     aria-label="Generated Password"
     value={result}
