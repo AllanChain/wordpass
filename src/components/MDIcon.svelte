@@ -8,5 +8,5 @@ export let size = 24
   style="width:{size}px;height:{size}px"
   viewBox="0 0 {size} {size}"
 >
-  <path class="fill-current" d={path} />
+  <path class="fill-current" style={`transform: scale(${size / 24});`} d={path} />
 </svg>
