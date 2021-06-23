@@ -1,4 +1,5 @@
 <script lang="ts">
+import { fade } from 'svelte/transition'
 import { generate } from '../generator'
 import { DEFAULT_APP_OPTIONS } from '../app-options'
 import type { WordpassAppOptions } from '../app-options'
@@ -11,6 +12,7 @@ import {
   mdiEyeOffOutline,
   mdiEyeOutline,
   mdiAlert,
+  mdiAlertOutline,
   mdiLoading,
   mdiLightningBolt
 } from '@mdi/js'
@@ -19,10 +21,14 @@ let password = ''
 let service = ''
 let result = ''
 let showingPassword = false
+let currentPhraseTrace = ''
 const options: WordpassAppOptions = Object.assign(
   {},
   DEFAULT_APP_OPTIONS,
   JSON.parse(localStorage.getItem('wordpassConfig') || '{}')
+)
+let phraseTraces: string[] = JSON.parse(
+  localStorage.getItem('wordpassTraces') || '[]'
 )
 const startFetching = (url: string) =>
   fetch(url).then(response => response.json())
@@ -31,7 +37,24 @@ const refresh = async (words: string[]) => {
   if (options.saveConfig) {
     localStorage.setItem('wordpassConfig', JSON.stringify(options))
   }
+  if (options.checkTrace) {
+    // Use a constant test service
+    currentPhraseTrace = await generate(password, 'WordPass', words, options)
+    if (!phraseTraces.length) {
+      // first ever
+      localStorage.setItem(
+        'wordpassTraces',
+        JSON.stringify([currentPhraseTrace])
+      )
+      phraseTraces.push(currentPhraseTrace)
+    }
+  }
   result = await generate(password, service, words, options)
+}
+const rememberTrace = (mode: 'append' | 'overwrite') => {
+  phraseTraces =
+    mode === 'append' ? [...phraseTraces, currentPhraseTrace] : phraseTraces
+  localStorage.setItem('wordpassTraces', JSON.stringify(phraseTraces))
 }
 const targetValue = (event: Event): string =>
   (event.target as HTMLInputElement).value
@@ -40,6 +63,7 @@ const targetValue = (event: Event): string =>
 <div class="w-full flex my-3">
   <label for="phrase" class="combined-text-label">Phrase</label>
   <div class="flex-1 relative">
+    <!-- type cannot be dynamic if input uses two-way binding -->
     <input
       id="phrase"
       class="pr-10 combined-text-input"
@@ -99,6 +123,57 @@ const targetValue = (event: Event): string =>
     <MDIcon class="inline-block animate-spin" path={mdiLoading} />Loading
   </button>
 {:then words}
+  <!-- Do not show right or wrong if no previous to compare -->
+  {#if currentPhraseTrace && phraseTraces.length && !phraseTraces.includes(currentPhraseTrace)}
+    <div
+      in:fade={{ duration: 200 }}
+      out:fade={{ duration: 500 }}
+      class="bg-black bg-opacity-20 w-screen h-screen fixed px-3
+        flex justify-center items-center inset-0 z-50 outline-none focus:outline-none"
+      on:click={() => {
+        currentPhraseTrace = ''
+      }}
+    >
+      <div
+        class="w-full max-w-lg p-5 mx-auto my-auto rounded-xl shadow-lg bg-gray-50 dark:bg-gray-700"
+      >
+        <h2 class="text-3xl text-center font-bold text-yellow-500">
+          <MDIcon class="block mx-auto" size={72} path={mdiAlertOutline} />
+          Caution!
+        </h2>
+        <p
+          class="text-left text-red-600 dark:text-red-500 sm:px-1 md:px-2 py-4"
+        >
+          Current phrase and option are not previously known. Either of them can
+          be wrong. Use the generated password with caution. Do you want to
+          <b>ignore</b> this time, <b>remember</b> this phrase and option too or
+          <b>overwrite</b> existing ones?
+        </p>
+        <div class="flex text-blue-600 dark:text-blue-400">
+          <button
+            class="font-bold flex-1 justify-center"
+            on:click={() => {
+              currentPhraseTrace = ''
+            }}
+          >
+            Ignore
+          </button>
+          <button
+            class="font-bold flex-1 justify-center"
+            on:click={() => rememberTrace('append')}
+          >
+            Remember
+          </button>
+          <button
+            class="font-bold flex-1 justify-center"
+            on:click={() => rememberTrace('overwrite')}
+          >
+            Overwrite
+          </button>
+        </div>
+      </div>
+    </div>
+  {/if}
   <button
     class="bg-green-600 text-gray-100 rounded hover:bg-green-500 pl-2 pr-4 py-2 focus:outline-none"
     on:click={() => refresh(words)}

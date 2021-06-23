@@ -14,11 +14,14 @@ const targetValueNumber = (event: Event): number =>
 </script>
 
 <div class="grid grid-cols-1 sm:grid-cols-2 gap-x-4 gap-y-1 text-gray-600 dark:text-gray-200">
-  <CheckboxOption id="capitailze" bind:checked={options.capitalize}>
-    Capitalize
-  </CheckboxOption>
   <CheckboxOption id="save-config" bind:checked={options.saveConfig}>
     Save This Config
+  </CheckboxOption>
+  <CheckboxOption id="check-config" bind:checked={options.checkTrace}>
+    Check Options and Phrase
+  </CheckboxOption>
+  <CheckboxOption id="capitailze" bind:checked={options.capitalize}>
+    Capitalize
   </CheckboxOption>
   <CheckboxOption id="append-number" bind:checked={options.appendNumber}>
     Append Number
@@ -40,6 +43,7 @@ const targetValueNumber = (event: Event): number =>
   >
     Dark Theme
   </CheckboxOption>
+  <div><!-- placeholder --></div>
   <TextOption id="salt-prefix" bind:value={options.saltPrefix}>
     Salt Prefix:
   </TextOption>
