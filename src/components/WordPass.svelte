@@ -17,10 +17,10 @@ import {
   mdiLightningBolt
 } from '@mdi/js'
 
-let password = ''
+let phrase = ''
 let service = ''
-let result = ''
-let showingPassword = false
+let generatedPassword = ''
+let showingPhrase = false
 let currentPhraseTrace = ''
 const options: WordpassAppOptions = Object.assign(
   {},
@@ -39,7 +39,7 @@ const refresh = async (words: string[]) => {
   }
   if (options.checkTrace) {
     // Use a constant test service
-    currentPhraseTrace = await generate(password, 'WordPass', words, options)
+    currentPhraseTrace = await generate(phrase, 'WordPass', words, options)
     if (!phraseTraces.length) {
       // first ever
       localStorage.setItem(
@@ -49,7 +49,7 @@ const refresh = async (words: string[]) => {
       phraseTraces.push(currentPhraseTrace)
     }
   }
-  result = await generate(password, service, words, options)
+  generatedPassword = await generate(phrase, service, words, options)
 }
 const rememberTrace = (mode: 'append' | 'overwrite') => {
   phraseTraces =
@@ -68,19 +68,19 @@ const targetValue = (event: Event): string =>
       id="phrase"
       class="pr-10 combined-text-input"
       on:input={event => {
-        password = targetValue(event)
+        phrase = targetValue(event)
       }}
-      type={showingPassword ? 'text' : 'password'}
+      type={showingPhrase ? 'text' : 'password'}
       placeholder="Your Meta Password"
-      value={password}
+      value={phrase}
     />
     <span
       class="text-gray-600 dark:text-gray-300 absolute top-0 right-0 py-2 px-3"
       on:click={() => {
-        showingPassword = !showingPassword
+        showingPhrase = !showingPhrase
       }}
     >
-      <MDIcon path={showingPassword ? mdiEyeOutline : mdiEyeOffOutline} />
+      <MDIcon path={showingPhrase ? mdiEyeOutline : mdiEyeOffOutline} />
     </span>
   </div>
 </div>
@@ -104,12 +104,12 @@ const targetValue = (event: Event): string =>
     class="flex-1 overflow-x-auto border-gray-400 dark:bg-gray-800 dark:border-gray-600 px-4 py-2 rounded-l outline-none"
     placeholder="Generated Password"
     aria-label="Generated Password"
-    value={result}
+    value={generatedPassword}
     disabled
   />
   <button
     class="bg-green-600  text-gray-100 hover:bg-green-500 flex items-center px-4 py-2 rounded-r"
-    on:click={() => navigator.clipboard.writeText(result)}
+    on:click={() => navigator.clipboard.writeText(generatedPassword)}
   >
     Copy
   </button>

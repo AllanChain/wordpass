@@ -36,7 +36,7 @@ export const DEFAULT_GENERATOR_OPTIONS: WordpassGeneratorOptions = {
 }
 
 export const generate = (
-  password: string,
+  phrase: string,
   service: string,
   words: string[],
   rawOptions: WordpassGeneratorOptions
@@ -44,7 +44,7 @@ export const generate = (
   const options = Object.assign({}, DEFAULT_GENERATOR_OPTIONS, rawOptions)
   return new Promise(resolve => {
     scrypt(
-      password,
+      phrase,
       options.saltPrefix + service + 'eS&S<E5R?mJBw(PO?a0Y',
       {
         N: options.N,
@@ -72,8 +72,8 @@ export const generate = (
               (i === chosenWords.length - 1
                 ? ''
                 : SYMBOLS.charAt(
-                    key[4 * options.strength + i + 3] % SYMBOLS.length
-                  )),
+                  key[4 * options.strength + i + 3] % SYMBOLS.length
+                )),
             ''
           )
           console.log(password, chosenWords)
